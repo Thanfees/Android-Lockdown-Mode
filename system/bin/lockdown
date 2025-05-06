@@ -1,0 +1,37 @@
+#!/system/bin/sh
+
+LOCKDOWN_FLAG="/data/adb/modules/lockdown/.lockdown_enabled"
+
+case "$1" in
+    enable)
+        touch "$LOCKDOWN_FLAG"
+        sh /data/adb/modules/lockdown/service.sh
+        echo "Lockdown mode enabled."
+        ;;
+    disable)
+        rm -f "$LOCKDOWN_FLAG"
+        # Re-enable all apps
+        pm list packages -d | cut -f 2 -d ":" | while read pkg; do
+            pm enable "$pkg"
+        done
+
+        # Restore original hosts file
+        ORIGINAL_HOSTS="/data/adb/modules/lockdown/hosts.original"
+        if [ -f "$ORIGINAL_HOSTS" ]; then
+            mount -o bind "$ORIGINAL_HOSTS" /system/etc/hosts
+        fi
+        # Restore notification settings
+        settings put global heads_up_notifications_enabled 1
+        # Enable Wi-Fi, Mobile Data, and Bluetooth
+        svc wifi enable
+        svc data enable
+        rfkill unblock all
+        # Unlock mic and camera
+        settings put secure camera_disabled 0
+        settings put secure microphone_disabled 0
+        echo "Lockdown mode disabled."
+        ;;
+    *)
+        echo "Usage: lockdown [enable|disable]"
+        ;;
+esac
