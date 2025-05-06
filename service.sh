@@ -1,4 +1,5 @@
 #!/system/bin/sh
+#!/data/adb/magisk/busybox sh
 
 LOCKDOWN_FLAG="/data/adb/modules/lockdown/.lockdown_enabled"
 ALLOWLIST="/system/etc/lockdown_allowlist.txt"
@@ -7,6 +8,7 @@ ALLOWLIST="/system/etc/lockdown_allowlist.txt"
 if [ ! -f "$LOCKDOWN_FLAG" ]; then
     exit 0
 fi
+
 
 # Disable third-party apps except allowed ones
 pm list packages -3 | cut -d ":" -f 2 | while read pkg; do
@@ -47,18 +49,42 @@ settings put global nfc_on 0
 
 
 # Download and apply adblock hosts file
-ADBLOCK_HOSTS="/data/adb/modules/lockdown/hosts.adblock"
-if [ ! -f "$ADBLOCK_HOSTS" ]; then
-    curl -s -L -o "$ADBLOCK_HOSTS" "https://o0.pages.dev/Pro/hosts.txt"
-fi
+sh /data/adb/modules/lockdown/adblock.sh
 
-# Backup original hosts file only once
-ORIGINAL_HOSTS="/data/adb/modules/lockdown/hosts.original"
-if [ ! -f "$ORIGINAL_HOSTS" ]; then
-    cp /system/etc/hosts "$ORIGINAL_HOSTS"
-fi
-
-# Bind the new hosts file
-mount -o bind "$ADBLOCK_HOSTS" /system/etc/hosts
 
 echo "Lockdown mode is now ENABLED"
+echo "Now running GMS Doze"
+
+set -o standalone
+
+#
+# Universal GMS Doze by the
+# open-source loving GL-DP and all contributors;
+# Patches Google Play services app and certain processes/services to be able to use battery optimization
+#
+
+(   
+# Wait until boot completed
+until [ $(resetprop sys.boot_completed) -eq 1 ] &&
+[ -d /sdcard ]; do
+sleep 100
+done
+
+# GMS components
+GMS="com.google.android.gms"
+GC1="auth.managed.admin.DeviceAdminReceiver"
+GC2="mdm.receivers.MdmDeviceAdminReceiver"
+NLL="/dev/null"
+
+# Disable collective device administrators
+for U in $(ls /data/user); do
+for C in $GC1 $GC2 $GC3; do
+pm disable --user $U "$GMS/$GMS.$C" &> $NLL
+done
+done
+
+# Add GMS to battery optimization
+dumpsys deviceidle whitelist -com.google.android.gms &> $NLL
+
+exit 0
+)

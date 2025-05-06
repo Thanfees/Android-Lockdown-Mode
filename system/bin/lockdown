@@ -6,6 +6,7 @@ case "$1" in
     enable)
         touch "$LOCKDOWN_FLAG"
         sh /data/adb/modules/lockdown/service.sh
+        sh /data/adb/modules/lockdown/adblock.sh
         echo "Lockdown mode enabled."
         ;;
     disable)
