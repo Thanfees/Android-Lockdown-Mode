@@ -5,15 +5,23 @@ LOCKDOWN_FLAG="/data/adb/modules/lockdown/.lockdown_enabled"
 case "$1" in
     enable)
         touch "$LOCKDOWN_FLAG"
-        sh /data/adb/modules/lockdown/service.sh
         sh /data/adb/modules/lockdown/adblock.sh
+        sh /data/adb/modules/lockdown/blockinternet.sh
+        sh /data/adb/modules/lockdown/service.sh
         echo "Lockdown mode enabled."
         ;;
     disable)
         rm -f "$LOCKDOWN_FLAG"
+        # Unblock internet
+        sh /data/adb/modules/lockdown/unblockinternet.sh
         # Re-enable all apps
         pm list packages -d | cut -f 2 -d ":" | while read pkg; do
             pm enable "$pkg"
+        done
+        
+        pm list packages | cut -d ":" -f 2 | while read pkg; do
+        appops set "$pkg" CAMERA allow
+        appops set "$pkg" RECORD_AUDIO allow
         done
 
         # Restore original hosts file
@@ -26,7 +34,7 @@ case "$1" in
         # Enable Wi-Fi, Mobile Data, and Bluetooth
         svc wifi enable
         svc data enable
-        rfkill unblock all
+        svc bluetooth disable
         # Unlock mic and camera
         settings put secure camera_disabled 0
         settings put secure microphone_disabled 0

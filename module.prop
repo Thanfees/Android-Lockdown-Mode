@@ -1,7 +1,7 @@
-id=androidlockdownmode
+id=lockdown
 name=Android Lockdown mode
 version=v1
 versionCode=1
 author=Thanfees & Aabir
-description=Enables/disables unnecessary apps/services, keeping launcher and authentication apps active.
+description=This is lockdown mode for android.
 updateJson=https://raw.githubusercontent.com/Thanfees/Android-Lockdown-Mode/master/update.json
