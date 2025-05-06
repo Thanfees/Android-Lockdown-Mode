@@ -44,12 +44,18 @@ fi
 # Step 4: UI and hardware restrictions
 echo "[Lockdown] Applying system restrictions..."
 settings put global heads_up_notifications_enabled 0
-svc wifi disable && echo "[✓] Wi-Fi disabled"
+svc wifi disable && echo "[✓] Wi-Fi disabled" 
+done
 svc data disable && echo "[✓] Mobile data disabled"
+done
 svc bluetooth disable && echo "[✓] Bluetooth disabled"
+done
 settings put global preferred_network_mode 1 && echo "[✓] Forced 2G mode"
+done
 settings put secure location_mode 0 && echo "[✓] Location disabled"
+done
 settings put global nfc_on 0 && echo "[✓] NFC disabled"
+done
 
 # Step 5: Apply ad-blocking
 echo "[Lockdown] Applying ad-blocking hosts file..."
