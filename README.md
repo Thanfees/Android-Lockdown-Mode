@@ -35,7 +35,7 @@ lockdown/<br>
 │ └── module.prop # (id=universal-gms-doze)<br>
 └── system/<br>
 │ └── etc/<br>
-│ └──└── lockdown_allowlist.txt<br>
+│   └── lockdown_allowlist.txt<br>
 
 
 ---
