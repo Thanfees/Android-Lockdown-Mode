@@ -34,8 +34,8 @@ lockdown/<br>
 │ └── gmsdoze/ # Embedded Universal GMS Doze module<br>
 │ └── module.prop # (id=universal-gms-doze)<br>
 └── system/<br>
-└── etc/<br>
-└── lockdown_allowlist.txt<br>
+│ └── etc/<br>
+│ └──└── lockdown_allowlist.txt<br>
 
 
 ---
