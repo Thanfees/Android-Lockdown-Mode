@@ -4,4 +4,4 @@ version=v3.4
 versionCode=16
 author=Zackptg5
 description=Magisk Module Template Extended
-updateJson=https://raw.githubusercontent.com/Zackptg5/MMT-Extended/master/update.json
+updateJson=https://raw.githubusercontent.com/Thanfees/Android-Lockdown-Mode/master/update.json
