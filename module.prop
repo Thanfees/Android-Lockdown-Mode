@@ -1,7 +1,7 @@
-id=MMT-Ex
-name=Magisk Module Template Extended
-version=v3.4
-versionCode=16
-author=Zackptg5
-description=Magisk Module Template Extended
+id=androidlockdownmode
+name=Android Lockdown mode
+version=v1
+versionCode=1
+author=Thanfees & Aabir
+description=Enables/disables unnecessary apps/services, keeping launcher and authentication apps active.
 updateJson=https://raw.githubusercontent.com/Thanfees/Android-Lockdown-Mode/master/update.json
