@@ -20,7 +20,7 @@ A powerful system-level **Lockdown Mode** for rooted Android devices built as a 
 
 ## 📁 Folder Structure
 
-lockdown/
+lockdown/<br>
 ├── module.prop
 ├── post-fs-data.sh
 ├── service.sh
