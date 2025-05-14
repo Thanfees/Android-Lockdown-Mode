@@ -21,21 +21,21 @@ A powerful system-level **Lockdown Mode** for rooted Android devices built as a 
 ## 📁 Folder Structure
 
 lockdown/<br>
-├── module.prop
-├── post-fs-data.sh
-├── service.sh
-├── uninstall.sh
-├── system.prop
-├── bin/
-│ └── lockdown # CLI control tool
-├── lockdown/
-│ ├── adblock.sh # Hosts-based adblock script
-│ ├── detect_malware.sh # Advanced malware detection
-│ └── gmsdoze/ # Embedded Universal GMS Doze module
-│ └── module.prop # (id=universal-gms-doze)
-└── system/
-└── etc/
-└── lockdown_allowlist.txt
+├── module.prop<br>
+├── post-fs-data.sh<br>
+├── service.sh<br>
+├── uninstall.sh<br>
+├── system.prop<br>
+├── bin/<br>
+│ └── lockdown # CLI control tool<br>
+├── lockdown/<br>
+│ ├── adblock.sh # Hosts-based adblock script<br>
+│ ├── detect_malware.sh # Advanced malware detection<br>
+│ └── gmsdoze/ # Embedded Universal GMS Doze module<br>
+│ └── module.prop # (id=universal-gms-doze)<br>
+└── system/<br>
+└── etc/<br>
+└── lockdown_allowlist.txt<br>
 
 
 ---
